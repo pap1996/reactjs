@@ -3,6 +3,7 @@ import "./Expense.css";
 import Card from "./Card";
 import ExpensesFilter from "./ExpenseFilter";
 import React, { useState } from "react";
+import ExpenseList from "./ExpenseList";
 
 function Expense(props) {
   const [filterYear, setFilterYear] = useState("2019");
@@ -10,22 +11,10 @@ function Expense(props) {
     setFilterYear(filterYear);
   };
 
-  console.log(props.items);
-
-  const x = props.items.map((expense) => (
-    <ExpenseItem
-      key={expense.id} // Important note for this -> React will render list improperly without key, especially to stateful component
-      expenseTitle={expense.title}
-      expenseAmount={expense.amount}
-      expenseDate={expense.date}
-    />
-  ));
-
-  console.log(x);
   return (
     <Card className="expenses">
       <ExpensesFilter filterYear={filterYear} onFilterChange={changeFilter} />
-      {x}
+      <ExpenseList items={props.items} filterYear={filterYear} />
 
       {/* <ExpenseItem
         expenseTitle={props.items[0].title}

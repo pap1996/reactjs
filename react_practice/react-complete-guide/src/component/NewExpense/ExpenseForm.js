@@ -42,6 +42,7 @@ const ExpenseForm = (props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
+  const [isOpenForm, setOpenForm] = useState(true);
 
   const titleChangeHandler = (event) => {
     setEnteredTitle(event.target.value);
@@ -70,7 +71,11 @@ const ExpenseForm = (props) => {
     setEnteredAmount("");
   };
 
-  return (
+  const openFormHandler = (event) => {
+    event.preventDefault();
+    setOpenForm(!isOpenForm);
+  };
+  const newExpense = (
     <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
         <div className="new-expense__control">
@@ -107,9 +112,17 @@ const ExpenseForm = (props) => {
 
       <div className="new-expense__actions">
         <button type="submit">Add Expense</button>
+        <button onClick={openFormHandler}>Cancel</button>
       </div>
     </form>
   );
+
+  const buttonExpense = (
+    <div className="new-expense__actions">
+      <button onClick={openFormHandler}>Add New Expense</button>
+    </div>
+  );
+  return isOpenForm ? buttonExpense : newExpense; // this is also the way, one other way is combine boolean and jsx (like the solution of the course)
 };
 
 export default ExpenseForm;
